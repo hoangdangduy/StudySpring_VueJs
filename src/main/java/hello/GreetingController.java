@@ -14,4 +14,13 @@ public class GreetingController {
         return "greeting";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login/login.html";
+    }
+
+    @GetMapping("/")
+    public String main() {
+        return "login/login.html";
+    }
 }

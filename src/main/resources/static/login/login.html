@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="../login/login.css">
+</head>
+</head>
+<body>
+
+<div id="page-login">
+    <div v-if="isLoginByUsername">
+        <label>Username: </label>
+        <input v-model="username" placeholder="Username">
+    </div>
+    <div v-else>
+        <label>Mail: </label>
+        <input v-model="mail" placeholder="Mail">
+    </div>
+    <div>
+        <label>Password: </label>
+        <input type="password" v-model="password" placeholder="Password">
+    </div>
+    <div>
+        <label>Login by:</label>
+        <input type="radio" id="radio-username" value="username" v-model="chooseTypeLogin">
+        <label for="radio-username">Username</label>
+        <input type="radio" id="radio-mail" value="mail" v-model="chooseTypeLogin">
+        <label for="radio-mail">Mail</label>
+    </div>
+
+    <div>
+        <br><br><br>
+        <label>After enter:</label>
+        <p v-if="isLoginByUsername" v-html="'Username: ' + username"></p>
+        <p v-if="!isLoginByUsername" v-html="'Mail: ' + mail"></p>
+        <p v-html="'Password: ' + password"></p>
+    </div>
+
+    <button id="btn-login" v-on:click="login">Submit</button>
+</div>
+
+
+<script type="text/javascript" src="../login/login.js"></script>
+</body>
+</html>
