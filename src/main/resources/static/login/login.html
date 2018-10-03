@@ -5,41 +5,52 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <link rel="stylesheet" href="../login/login.css">
+    <link rel="stylesheet" href="../common/bootstrap.min.css" >
+    <script src="../common/jquery-3.3.1.slim.min.js" ></script>
+    <script src="../common/popper.min.js" ></script>
+    <script src="../common/bootstrap.min.js"></script>
+    <script src="../common/axios.min.js"></script>
 </head>
 </head>
 <body>
+<div class="container">
+    <div id="page-login">
+        <table class="table">
+            <tbody>
+                <tr v-if="isLoginByUsername">
+                    <td><label>Username: </label></td>
+                    <td><input v-model="username" placeholder="Username"></td>
+                </tr>
+                <tr v-else>
+                    <td><label>Mail: </label></td>
+                    <td><input v-model="mail" placeholder="Mail"></td>
+                </tr>
+                <tr>
+                    <td><label>Password: </label></td>
+                    <td><input type="password" v-model="password" placeholder="Password"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <label>Login by:</label>
+            <input type="radio" id="radio-username" value="username" v-model="chooseTypeLogin">
+            <label for="radio-username">Username</label>
+            <input type="radio" id="radio-mail" value="mail" v-model="chooseTypeLogin">
+            <label for="radio-mail">Mail</label>
+        </div>
 
-<div id="page-login">
-    <div v-if="isLoginByUsername">
-        <label>Username: </label>
-        <input v-model="username" placeholder="Username">
-    </div>
-    <div v-else>
-        <label>Mail: </label>
-        <input v-model="mail" placeholder="Mail">
-    </div>
-    <div>
-        <label>Password: </label>
-        <input type="password" v-model="password" placeholder="Password">
-    </div>
-    <div>
-        <label>Login by:</label>
-        <input type="radio" id="radio-username" value="username" v-model="chooseTypeLogin">
-        <label for="radio-username">Username</label>
-        <input type="radio" id="radio-mail" value="mail" v-model="chooseTypeLogin">
-        <label for="radio-mail">Mail</label>
-    </div>
+        <div>
+            <br><br><br>
+            <label>After enter:</label>
+            <p v-if="isLoginByUsername" v-html="'Username: ' + username"></p>
+            <p v-if="!isLoginByUsername" v-html="'Mail: ' + mail"></p>
+            <p v-html="'Password: ' + password"></p>
+        </div>
 
-    <div>
-        <br><br><br>
-        <label>After enter:</label>
-        <p v-if="isLoginByUsername" v-html="'Username: ' + username"></p>
-        <p v-if="!isLoginByUsername" v-html="'Mail: ' + mail"></p>
-        <p v-html="'Password: ' + password"></p>
+        <button class="btn btn-success" id="btn-login" v-on:click="login">Submit</button>
     </div>
-
-    <button id="btn-login" v-on:click="login">Submit</button>
 </div>
+
 
 
 <script type="text/javascript" src="../login/login.js"></script>
