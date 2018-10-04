@@ -1,6 +1,8 @@
 package main;
 
+import com.dom.Product;
 import com.dom.User;
+import com.repo.ProductRepository;
 import com.repo.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +27,7 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner demo(UserRepository repository) {
+    public CommandLineRunner demo(UserRepository repository, ProductRepository productRepository) {
         return (args) -> {
             // save a couple of customers
             repository.save(new User("admin", "admin@admin.com", "admin"));
@@ -47,6 +49,11 @@ public class Application {
                         log.info(user.toString());
                         log.info("");
                     });
+
+            productRepository.save(new Product("SAN PHAM 1", 1, "san pham cung tot day"));
+            productRepository.save(new Product("SAN PHAM 2", 2, "san pham thuoc trung binh"));
+            productRepository.save(new Product("SAN PHAM 3", 3, "san pham kha"));
+            productRepository.save(new Product("SAN PHAM 4", 4, "san pham tot"));
         };
     }
 }

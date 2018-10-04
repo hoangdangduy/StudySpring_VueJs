@@ -21,6 +21,11 @@ public class GreetingController {
 
     @GetMapping("/")
     public String main() {
-        return "login/login.html";
+        return "index.html";
+    }
+
+    @GetMapping("/main-screen")
+    public String mainScreen() {
+        return "mainScreen/mainScreen.html";
     }
 }

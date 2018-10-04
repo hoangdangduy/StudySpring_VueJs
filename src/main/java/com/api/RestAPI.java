@@ -1,6 +1,8 @@
 package com.api;
 
+import com.dom.Product;
 import com.dom.User;
+import com.repo.ProductRepository;
 import com.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,9 @@ public class RestAPI {
 
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     /*
      *  Check login
@@ -67,5 +72,14 @@ public class RestAPI {
     public String greeting(@RequestParam(name="id") long id) {
         repository.deleteById(id);
         return "greeting";
+    }
+
+    @RequestMapping(value = "/get-all-product", method = RequestMethod.GET)
+    public ResponseEntity<List<Product>> getAllProduct() {
+        List<Product> lstProduct = new ArrayList<>();
+        productRepository.findAll().forEach(domain -> {
+            lstProduct.add(domain);
+        });
+        return new ResponseEntity<List<Product>>(lstProduct, HttpStatus.OK);
     }
 }
