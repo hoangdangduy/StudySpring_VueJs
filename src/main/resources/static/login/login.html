@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="container" id="page-login">
-    <div>
+    <div id="screen-login" v-if="!isLogin">
         <table class="table">
             <tbody>
                 <tr v-if="isLoginByUsername">
@@ -51,6 +51,26 @@
         <button class="btn btn-success" id="btn-login" v-on:click="login">Submit</button>
     </div>
 
+    <div id="manage-login-user" v-if="isLogin">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td><label>Username:</label></td>
+                <td><input placeholder="Username" v-model="username"></td>
+            </tr>
+            <tr>
+                <td><label>Mail:</label></td>
+                <td><input placeholder="Mail" v-model="mail"></td>
+            </tr>
+            <tr>
+                <td><label>Password:</label></td>
+                <td><input type="password" placeholder="Password" v-model="password"></td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-success" v-on:click="addUser">Add</button>
+    </div>
+
     <div>
         <table class="table">
             <thead class="thead-dark">
@@ -60,15 +80,21 @@
                 <th scope="col">Mail</th>
                 <th scope="col">Password</th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="user in users">
-                <th scope="row">1</th>
-                <td>{{ user.username }}</td>
-                <td>{{ user.mail }}</td>
-                <td>{{ user.password }}</td>
-                <td><button>Delete</button></td>
+                <th scope="row">{{ user.id }}</th>
+                <td><input class="no-border" type="text" name="username" readonly="readonly" v-model="user.username"/></td>
+                <td><input class="no-border" type="text" name="mail" readonly="readonly" v-model="user.mail"/></td>
+                <td><input class="no-border" type="text" name="password" readonly="readonly" v-model="user.password"/></td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-edit" v-on:click="editUser($event, user.id)">Edit</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" v-on:click="deleteUser(user.id)">Delete</button>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -78,6 +104,5 @@
 
 
 <script type="text/javascript" src="../login/login.js"></script>
-
 </body>
 </html>

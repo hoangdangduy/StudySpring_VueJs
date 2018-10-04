@@ -1,6 +1,5 @@
 package main;
 
-import com.dom.Customer;
 import com.dom.User;
 import com.repo.UserRepository;
 import org.slf4j.Logger;
