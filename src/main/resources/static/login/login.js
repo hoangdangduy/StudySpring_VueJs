@@ -5,7 +5,8 @@ var app = new Vue({
         password: '',
         mail: '',
         isLoginByUsername: true,
-        chooseTypeLogin: 'username'
+        chooseTypeLogin: 'username',
+        users: []
     },
     watch: {
         chooseTypeLogin: function (newVal, oldVal) {
@@ -19,17 +20,16 @@ var app = new Vue({
     methods: {
         login: function () {
             axios
-                .post('http://localhost:8080/login-api', {
+                .post('/login-api', {
                     "username": this.username,
                     "mail": this.mail,
                     "password": this.password
                 })
                 .then(function(response) {
-                    alert(response.data);
                     console.log(response.data);
-                    axios.get('http://localhost:8080/get-all-login')
+                    axios.get('/get-all-login')
                         .then(function (response) {
-                            console.log(response);
+                            app.users = response.data;
                         })
                         .catch(function (error) {
                             console.log(error);
