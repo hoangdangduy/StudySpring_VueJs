@@ -16,12 +16,12 @@ public class Product {
     private Long id;
 
     private String nameProduct;
-    private Integer rank;
+    private float rank;
     private String comment;
 
     public Product() {}
 
-    public Product(String nameProduct, Integer rank, String comment) {
+    public Product(String nameProduct, float rank, String comment) {
         this.nameProduct = nameProduct;
         this.rank = rank;
         this.comment = comment;

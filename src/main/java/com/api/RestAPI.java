@@ -82,4 +82,9 @@ public class RestAPI {
         });
         return new ResponseEntity<List<Product>>(lstProduct, HttpStatus.OK);
     }
+
+    @GetMapping("/get-detail-by-id")
+    public ResponseEntity<Product> getDetailProduct(@RequestParam(name="id") long id) {
+        return new ResponseEntity<Product>(productRepository.findById(id).get(), HttpStatus.OK);
+    }
 }

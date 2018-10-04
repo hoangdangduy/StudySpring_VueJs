@@ -27,22 +27,30 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner demo(UserRepository repository, ProductRepository productRepository) {
+    public CommandLineRunner demo(UserRepository userRepository, ProductRepository productRepository) {
         return (args) -> {
+            productRepository.save(new Product("SAN PHAM 1", 1, "san pham cung tot day"));
+            productRepository.save(new Product("SAN PHAM 2", 2, "san pham thuoc trung binh"));
+            productRepository.save(new Product("SAN PHAM 3", 3, "san pham kha"));
+            productRepository.save(new Product("SAN PHAM 4", 4, "san pham tot"));
+            productRepository.save(new Product("SAN PHAM 1", 4, "san pham tot"));
+            productRepository.save(new Product("SAN PHAM 1", 4, "san pham tot"));
+            productRepository.save(new Product("SAN PHAM 2", 4, "san pham tot"));
+
             // save a couple of customers
-            repository.save(new User("admin", "admin@admin.com", "admin"));
+            userRepository.save(new User("admin", "admin@admin.com", "admin"));
 
 
             // fetch all user
             log.info("Users found with findAll():");
             log.info("-------------------------------");
-            for (User user : repository.findAll()) {
+            for (User user : userRepository.findAll()) {
                 log.info(user.toString());
             }
             log.info("");
 
             // fetch an individual customer by ID
-            repository.findById(1L)
+            userRepository.findById(1L)
                     .ifPresent(user -> {
                         log.info("Customer found with findById(1L):");
                         log.info("--------------------------------");
@@ -50,10 +58,8 @@ public class Application {
                         log.info("");
                     });
 
-            productRepository.save(new Product("SAN PHAM 1", 1, "san pham cung tot day"));
-            productRepository.save(new Product("SAN PHAM 2", 2, "san pham thuoc trung binh"));
-            productRepository.save(new Product("SAN PHAM 3", 3, "san pham kha"));
-            productRepository.save(new Product("SAN PHAM 4", 4, "san pham tot"));
+
+
         };
     }
 }

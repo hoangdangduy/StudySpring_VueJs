@@ -28,4 +28,9 @@ public class GreetingController {
     public String mainScreen() {
         return "mainScreen/mainScreen.html";
     }
+
+    @GetMapping("/detail-product")
+    public String detailProduct(@RequestParam(name="id") String id) {
+        return "mainScreen/detailproduct.html";
+    }
 }

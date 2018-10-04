@@ -4,7 +4,7 @@
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <link rel="stylesheet" href="../login/login.css">
+    <link rel="stylesheet" href="../mainScreen/mainscreen.css">
     <link rel="stylesheet" href="../common/bootstrap.min.css" >
     <script src="../common/jquery-3.3.1.slim.min.js" ></script>
     <script src="../common/popper.min.js" ></script>
@@ -22,7 +22,7 @@
             <th scope="col">Tên</th>
             <th scope="col">Ảnh</th>
             <th scope="col">Xếp hạng</th>
-            <th scope="col">Bình luận</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -30,8 +30,8 @@
             <th scope="row"><label>{{ product.id }}</label></th>
             <td><label>{{ product.nameProduct }}</label></td>
             <td>duong dan anh</td>
-            <td>{{ product.rank }}</td>
-            <td><pre>{{ product.comment }}</pre></td>
+            <td> {{ product.rank }} </td>
+            <td><a v-bind:href="'/detail-product?id='+ product.id " >Xem chi tiết</a></td>
         </tr>
         </tbody>
     </table>
@@ -39,6 +39,6 @@
 
 </div>
 
-<script type="text/javascript" src="../mainscreen/mainscreen.js"></script>
+<script type="text/javascript" src="../mainScreen/mainscreen.js"></script>
 </body>
 </html>
