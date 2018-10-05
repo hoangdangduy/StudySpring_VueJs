@@ -1,11 +1,10 @@
 package com.dom;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -17,23 +16,26 @@ public class Product {
 
     private String nameProduct;
     private float rank;
-    private String comment;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<Comment> lstComment;
 
     public Product() {}
 
-    public Product(String nameProduct, float rank, String comment) {
+    public Product(String nameProduct, float rank, List<Comment> lstComment) {
         this.nameProduct = nameProduct;
         this.rank = rank;
-        this.comment = comment;
+        this.lstComment = lstComment;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", nameProduct='" + nameProduct + '\'' +
-                ", rank=" + rank +
-                ", comment='" + comment + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Product{" +
+//                "id=" + id +
+//                ", nameProduct='" + nameProduct + '\'' +
+//                ", rank=" + rank +
+//                ", comment='" + comment + '\'' +
+//                '}';
+//    }
 }

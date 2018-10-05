@@ -1,7 +1,9 @@
 package com.api;
 
+import com.dom.Comment;
 import com.dom.Product;
 import com.dom.User;
+import com.repo.CommentRepository;
 import com.repo.ProductRepository;
 import com.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class RestAPI {
@@ -20,6 +23,9 @@ public class RestAPI {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     /*
      *  Check login
@@ -83,8 +89,16 @@ public class RestAPI {
         return new ResponseEntity<List<Product>>(lstProduct, HttpStatus.OK);
     }
 
-    @GetMapping("/get-detail-by-id")
+    @RequestMapping(value = "/get-detail-by-id", method = RequestMethod.GET)
     public ResponseEntity<Product> getDetailProduct(@RequestParam(name="id") long id) {
         return new ResponseEntity<Product>(productRepository.findById(id).get(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/add-comment", method = RequestMethod.POST)
+    public ResponseEntity<String> addComment(@RequestBody Map<String, String> mapData) {
+        Product product = productRepository.findById(Long.parseLong(mapData.get("idProduct"))).get();
+        Comment comment = new Comment(mapData.get("username"), mapData.get("comment"), Integer.parseInt(mapData.get("rank")), product);
+        commentRepository.save(comment);
+        return new ResponseEntity<String>("Done", HttpStatus.OK);
     }
 }
