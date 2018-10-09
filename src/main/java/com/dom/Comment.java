@@ -14,7 +14,7 @@ public class Comment {
     private Long id;
     private String username;
     private String comment;
-    private int rank;
+    private Integer rank;
 
     @ManyToOne
     @JoinColumn(name = "idProduct", referencedColumnName="id")
@@ -23,14 +23,14 @@ public class Comment {
 
     public Comment() {}
 
-    public Comment(String username, String comment, int rank, Product product) {
+    public Comment(String username, String comment, Integer rank, Product product) {
         this.username = username;
         this.comment = comment;
         this.rank = rank;
         this.product = product;
     }
 
-    public Comment(String username, String comment, int rank) {
+    public Comment(String username, String comment, Integer rank) {
         this.username = username;
         this.comment = comment;
         this.rank = rank;

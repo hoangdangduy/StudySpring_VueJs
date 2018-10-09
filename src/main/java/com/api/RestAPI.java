@@ -7,14 +7,14 @@ import com.repo.CommentRepository;
 import com.repo.ProductRepository;
 import com.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class RestAPI {
@@ -83,6 +83,8 @@ public class RestAPI {
 
     @RequestMapping(value = "/get-all-product", method = RequestMethod.GET)
     public ResponseEntity<List<Product>> getAllProduct() {
+        Pageable pageable = PageRequest.of(1, 20);
+
         List<Product> lstProduct = new ArrayList<>();
         productRepository.findAll().forEach(domain -> {
             lstProduct.add(domain);
@@ -97,9 +99,30 @@ public class RestAPI {
 
     @RequestMapping(value = "/add-comment", method = RequestMethod.POST)
     public ResponseEntity<String> addComment(@RequestBody Map<String, String> mapData) {
-        Product product = productRepository.findById(Long.parseLong(mapData.get("idProduct"))).get();
-        Comment comment = new Comment(mapData.get("username"), mapData.get("comment"), Integer.parseInt(mapData.get("rank")), product);
-        commentRepository.save(comment);
+        String username = mapData.get("username");
+        String commentText = mapData.get("comment");
+        Integer rank = Integer.parseInt(mapData.get("rank"));
+        Long idProduct = Long.parseLong(mapData.get("idProduct"));
+        Comment comment;
+        float rankAverage;
+
+        Product product = productRepository.findById(idProduct).get();
+        Optional<Comment> optComment = commentRepository.findByUsernameAndProduct(username, product);
+        if (optComment.isPresent()) {
+            comment = optComment.get();
+            comment.setComment(commentText);
+            comment.setRank(rank);
+            commentRepository.save(comment);
+        } else {
+            Comment commentNew = new Comment(username, commentText, rank, product);
+            commentRepository.save(commentNew);
+        }
+
+        List<Comment> lstComment = commentRepository.findByProduct(product);
+        Double rankAverageD = lstComment.stream().mapToDouble(dom -> dom.getRank()).average().getAsDouble();
+        rankAverage = rankAverageD.floatValue();
+        product.setRank(rankAverage);
+        productRepository.save(product);
         return new ResponseEntity<String>("Done", HttpStatus.OK);
     }
 

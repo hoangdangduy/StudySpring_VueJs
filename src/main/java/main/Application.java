@@ -1,8 +1,5 @@
 package main;
 
-import com.dom.Comment;
-import com.dom.Product;
-import com.dom.User;
 import com.repo.CommentRepository;
 import com.repo.ProductRepository;
 import com.repo.UserRepository;
@@ -15,12 +12,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.api","com.web","com.dom","com.repo"} )
