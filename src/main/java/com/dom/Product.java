@@ -28,14 +28,4 @@ public class Product {
         this.rank = rank;
         this.lstComment = lstComment;
     }
-
-//    @Override
-//    public String toString() {
-//        return "Product{" +
-//                "id=" + id +
-//                ", nameProduct='" + nameProduct + '\'' +
-//                ", rank=" + rank +
-//                ", comment='" + comment + '\'' +
-//                '}';
-//    }
 }

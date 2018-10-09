@@ -15,6 +15,51 @@
 </head>
 <body>
 <div class="container" id="main-page-product">
+    <div v-if="isViewDetail">
+        <div>
+            <label>Ten san pham: {{ product.nameProduct }}</label>
+            <br>
+            <label>Điểm bình chọn: <span class="badge badge-secondary">{{ product.rank }}</span></label>
+        </div>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Người dùng</th>
+                <th scope="col">Bình luận</th>
+                <th scope="col">Đánh giá</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(comment, index) in product.lstComment">
+                <td>{{ comment.username }}</td>
+                <td>{{ comment.comment }}</td>
+                <td>{{ comment.rank }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+        <label>Username:</label>
+        <input type="text" v-model="username"/>
+        <br>
+        <label>Bình luận</label>
+        <textarea v-model="comment"></textarea>
+        <br>
+        <label>Đánh giá:</label>
+        <input type="radio" name="rank" id="rank-point-1" value="1" v-model="rankComment">
+        <label for="rank-point-1">1</label>
+        <input type="radio" name="rank" id="rank-point-2" value="2" v-model="rankComment">
+        <label for="rank-point-2">2</label>
+        <input type="radio" name="rank" id="rank-point-3" value="3" v-model="rankComment">
+        <label for="rank-point-3">3</label>
+        <input type="radio" name="rank" id="rank-point-4" value="4" v-model="rankComment">
+        <label for="rank-point-4">4</label>
+        <input type="radio" name="rank" id="rank-point-5" value="5" v-model="rankComment">
+        <label for="rank-point-5">5</label>
+        <br>
+        </div>
+        <button v-bind:disabled="!username" type="button" class="btn btn-primary" v-on:click="">Thêm bình luận</button>
+    </div>
+
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -26,17 +71,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="product in products">
-            <th scope="row"><label>{{ product.id }}</label></th>
-            <td><label>{{ product.nameProduct }}</label></td>
+        <tr v-for="product1 in products" v-bind:class="{'background-add': product1 == product}" >
+            <th scope="row"><label>{{ product1.id }}</label></th>
+            <td><label>{{ product1.nameProduct }}</label></td>
             <td>duong dan anh</td>
-            <td> {{ product.rank }} </td>
-            <td><a v-bind:href="'/detail-product?id='+ product.id " >Xem chi tiết</a></td>
+            <td> {{ product1.rank }} </td>
+            <td v-on:click="viewDetail(product1)" >Xem chi tiết</a></td>
         </tr>
         </tbody>
     </table>
-
-
 </div>
 
 <script type="text/javascript" src="../mainScreen/mainscreen.js"></script>

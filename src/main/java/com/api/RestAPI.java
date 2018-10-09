@@ -9,6 +9,7 @@ import com.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -100,5 +101,11 @@ public class RestAPI {
         Comment comment = new Comment(mapData.get("username"), mapData.get("comment"), Integer.parseInt(mapData.get("rank")), product);
         commentRepository.save(comment);
         return new ResponseEntity<String>("Done", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/get-user-by-username", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> getAllUserByUsername(@RequestParam(name="username") String username) {
+
+        return new ResponseEntity<List<User>>(repository.findByUsernameContaining(username), HttpStatus.OK);
     }
 }

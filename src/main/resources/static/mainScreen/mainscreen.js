@@ -2,6 +2,12 @@ var app = new Vue({
     el: '#main-page-product',
     data: {
         products: [],
+        isViewDetail: false,
+        product: {},
+        rankComment: 0,
+        comment: '',
+        username: '',
+        comment: '',
     },
     watch: {
 
@@ -17,7 +23,10 @@ var app = new Vue({
                     console.log(error.response.data);
                 })
         },
-
+        viewDetail: function(product) {
+            app.product = product;
+            app.isViewDetail = true;
+        }
     }
 });
 
